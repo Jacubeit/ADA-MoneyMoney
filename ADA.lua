@@ -65,15 +65,12 @@ function RefreshAccount (account, since)
 
   for address in string.gmatch(adaAddress, '([^,]+)') do
     adaQuantity = requestAdaQuantityForAdaAddress(address)
-    MM.printStatus(adaQuantity)
-
-    -- adaasQuantity:dictionary()["balance"][2]["amount"]
 
     s[#s+1] = {
       name = address,
       currency = nil,
       market = "coinmarketcap",
-      quantity = "1",
+      quantity = adaQuantity:dictionary()["Right"]["caBalance"]["getCoin"],
       price = prices["price_eur"],
     }
 
@@ -110,7 +107,6 @@ end
 
 function adaRequestUrl(adaAddress)
   adaChain = "http://cardanoexplorer.com/api/addresses/summary/"
-  -- DdzFFzCqrhskw4EufWsN1cs4SUEht5R3DBdL22ovZRUfTnyAhXedEQQNdqa3kz8ZBVqLxDvreRKbywFzhz51ZPEZQniAccRj5GRQU5Q4
   return adaChain .. adaAddress
 end
 
